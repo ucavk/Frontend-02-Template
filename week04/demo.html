@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+        function matcha(string){
+            for(let c of string){console.log(c)
+                if( c == 'a')
+                    return true;
+            }
+            return false;
+        }
+
+        function matchab(string){
+            let finda = false;
+            for(let c of string){console.log(c)
+                if( c == 'a'){
+                    finda = true;
+                }else if( c=='b')
+                    return true;
+            }
+            return false;
+        }
+        
+        function matchabcdef(string){
+            let finda,findb,findc,findd,finde,findf;
+            for(let c of string){console.log(c)
+                if( c == 'a'){
+                    finda = true;
+                }else if( c=='b'){
+                    findb = true;
+                }else if( c=='c'){
+                    findc = true;
+                }else if( c=='d'){
+                    findd = true;
+                }else if( c=='e'){
+                    finde = true;
+                }else if(finda && findb &&findc &&findd && finde && c == 'f'){
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        var a = matcha('I am a happy person.')
+        var ab = matchab('I am ab happy person.')
+        var abcdef = matchabcdef('I am abcdef happy person.')
+
+        console.log(abcdef)
+*/
+
+
+function match(string){
+    let state = start;
+    for(let c of string){
+        state = state(c);
+    }
+    return state === end;
+}
+
+function start(c){
+    if(c === 'a') return foundA;
+    else return start;
+}
+
+function end(c){
+    return end;
+}
+
+function foundA(c){
+    if(c === 'b') return foundC
+    else return start(c);
+}
+
+
+function foundC(c){
+    if( c==='a') return foundA2;
+    else return start(c);
+}
+
+function foundA2(c){
+    if(c === 'b') return foundB2;
+    else return start(c);
+}
+
+function foundB2(c){
+    if(c === 'x') return end;
+    else return foundB(c)
+}
+
+console.log(match('I am ababxfcde'))
+
+
+    </script>
+</body>
+</html>
