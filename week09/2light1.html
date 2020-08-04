@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		.lights div{float:left; width:100px;height:100px;background:#ccc;border-radius:100%;margin:10px;}
+		.green.light{background:green;}
+		.yellow.light{background:yellow;}
+		.red.light{background:red;}
+	</style>
+</head>
+<body>
+
+<div class="lights">
+	<div class="green"></div>
+	<div class="yellow"></div>
+	<div class="red"></div>
+</div>
+
+<script>
+var greenobj = document.querySelector('.green')
+var yellowobj = document.querySelector('.yellow')
+var redobj = document.querySelector('.red')
+var lights = document.querySelectorAll('.lights div')
+
+function green(){
+	for(var i=0; i<lights.length; i++){
+		lights[i].classList.remove('light')
+	}
+	greenobj.classList.add('light')
+}
+function yellow(){
+	for(var i=0; i<lights.length; i++){
+		lights[i].classList.remove('light')
+	}
+	yellowobj.classList.add('light')
+
+}	
+function red(){
+	for(var i=0; i<lights.length; i++){
+		lights[i].classList.remove('light')
+	}
+	redobj.classList.add('light')
+}	
+
+function sleep(t){
+	return new Promise((resolve,reject)=>{
+		setTimeout(resolve,t)
+	})
+}
+
+function start(){
+	green()
+	sleep(1000).then(()=>{
+		yellow();
+		return sleep(200);
+	}).then(()=>{
+		red();
+		return sleep(500)
+	}).then(start)
+}
+
+start()
+</script>
+	
+</body>
+</html>
