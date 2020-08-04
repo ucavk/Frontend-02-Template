@@ -1,0 +1,74 @@
+<script>
+    let names = Object.getOwnPropertyNames(window);
+
+    function filterOut(name,props){
+        let set = new Set();
+        props.forEach(o=>set.add(o));
+        return names.filter(e=>!set.has(e))
+    }
+
+    {
+        let js = new Set();
+        let objects = ['globalThis','console','BigInt','BigInt64Array','BigUint64Array','Infinity','NaN','undefined','eval','isFinite']
+        objects.forEach(o=>js.add(o));
+        names = names.filter(e=>!js.has(e))
+    }
+
+    names = names.filter(e=>{
+        try{
+            return !(window[e].prototype instanceof Node)
+        }catch(err){
+            return true;
+        }
+    }).filter(e=>e !='Node')
+
+    names = names.filter(e=>!e.match(/^on/))
+
+    names = names.filter(e=>!e.match(/^webkit/))
+
+    {
+        let names = Object.getOwnPropertyNames(window)
+        let js = new Set();
+        let objects = ['BigInt','BigInt64Array','BigUint64Array','Infinity','NaN','undefined','eval','isFinite','isNaN','parseFloat']
+        objects.forEach(o=>js.add(o));
+        names = names.filter(e=>!js.has(e));
+
+        names = names.filter(e=>{
+            try{
+                return !(window[e].prototype instanceof Node)
+            }catch(err){
+                return true;
+            }
+        }).filter(e=>e!='Node')
+
+        let windowprops = new Set();
+        objects = ['window','self','document','name','location','history','customElements','localtionbar','menubar']
+        objects.forEach(o=>windowprops.add(o))
+        names = names.filter(e=>!windowprops.has(e))
+
+
+    }
+
+
+    {
+        let interfaces = new Set();
+        objects = ['ApplicationCache','AudioTrack','AudioTrackList','BarProp','BeforeUnloadEvent','BroadcastChannel']
+        objects.forEach(o=>interfaces.add(o));
+
+        names = names.filter(e=>!interfaces.has(e))
+    }
+
+    names = names.filter(e=>e!='Intl')
+
+    names = filterOut(names,['WebGLVertexArrayObject','WebGLTransformfeedback','WebGLSync','WebGLSampler','WebGLQuery'])
+
+    names = filterOut(names,['AudioContext','AudioNode','AnalyserNode','AudioBuffer','AudioBufferSourceNode'])
+
+    names = filterOut(names,['TextDecoder','TextEncoder','TextDecoderStream','TextEncoderStream']);
+
+    names = filterOut(names,['ReadableStream','ReadableStreamDefaultReader','ReadableStreamBYOBReader'])
+
+    names = filterOut(names,['SyncManager']);
+
+    console.log(names)
+</script>
